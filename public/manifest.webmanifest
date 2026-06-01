@@ -1,0 +1,18 @@
+{
+  "name": "DOZEN",
+  "short_name": "DOZEN",
+  "description": "GM, deploy tokens, refer friends, and earn NFT badges on Base.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c1202",
+  "theme_color": "#b8ff3c",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

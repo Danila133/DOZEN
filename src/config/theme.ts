@@ -1,0 +1,21 @@
+/** Spore Grove — organic dark + lime */
+export const theme = {
+  primary: "#B8FF3C",
+  primaryHover: "#C8FF5C",
+  primaryPressed: "#9AE032",
+  secondary: "#7EE081",
+  primaryDeep: "#3D6B28",
+  background: "#0C1202",
+  backgroundElevated: "#141A0A",
+  surface1: "#1A2212",
+  surface2: "#222C18",
+  textPrimary: "#EEF6E8",
+  textSecondary: "rgba(238, 246, 232, 0.76)",
+  textTertiary: "rgba(156, 176, 138, 0.72)",
+  border: "rgba(184, 255, 60, 0.1)",
+  success: "#7EE081",
+  error: "#FF6B6B",
+  radiusSm: 8,
+  radiusLg: 16,
+  radiusXl: 20,
+} as const;

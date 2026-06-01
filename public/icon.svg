@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="DOZEN">
+  <defs>
+    <linearGradient id="cap" x1="96" y1="80" x2="416" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c8ff5c"/>
+      <stop offset="45%" stop-color="#b8ff3c"/>
+      <stop offset="100%" stop-color="#7ee081"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#b8ff3c" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0c1202" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="#0c1202"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- spore dots -->
+  <circle cx="120" cy="140" r="6" fill="#b8ff3c" opacity="0.35"/>
+  <circle cx="392" cy="168" r="4" fill="#7ee081" opacity="0.4"/>
+  <circle cx="340" cy="108" r="5" fill="#c8ff5c" opacity="0.3"/>
+  <circle cx="168" cy="96" r="3" fill="#7ee081" opacity="0.45"/>
+
+  <g filter="url(#soft)">
+    <!-- mushroom cap -->
+    <ellipse cx="256" cy="248" rx="168" ry="132" fill="url(#cap)"/>
+    <!-- stem -->
+    <path
+      fill="#1a2212"
+      stroke="#3d6b28"
+      stroke-width="6"
+      d="M 208 280 Q 208 380 230 420 H 282 Q 304 380 304 280 Z"
+    />
+    <rect x="224" y="400" width="64" height="28" rx="12" fill="#141a0a"/>
+  </g>
+
+  <!-- highlight -->
+  <ellipse cx="210" cy="210" rx="48" ry="28" fill="#ffffff" opacity="0.12"/>
+</svg>

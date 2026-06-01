@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 628" role="img" aria-label="DOZEN">
+  <defs>
+    <linearGradient id="cap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c8ff5c"/>
+      <stop offset="50%" stop-color="#b8ff3c"/>
+      <stop offset="100%" stop-color="#7ee081"/>
+    </linearGradient>
+    <radialGradient id="bgGlow" cx="30%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#b8ff3c" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0c1202" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="628" fill="#0c1202"/>
+  <rect width="1200" height="628" fill="url(#bgGlow)"/>
+
+  <g transform="translate(140 114)">
+    <ellipse cx="200" cy="200" rx="180" ry="140" fill="url(#cap)"/>
+    <path
+      fill="#1a2212"
+      stroke="#3d6b28"
+      stroke-width="8"
+      d="M 120 220 Q 120 360 150 400 H 250 Q 280 360 280 220 Z"
+    />
+    <ellipse cx="155" cy="175" rx="40" ry="22" fill="#fff" opacity="0.1"/>
+  </g>
+
+  <text
+    x="520"
+    y="300"
+    fill="#eef6e8"
+    font-family="system-ui, sans-serif"
+    font-size="96"
+    font-weight="700"
+    letter-spacing="-0.03em"
+  >
+    DOZEN
+  </text>
+  <text
+    x="520"
+    y="360"
+    fill="#9cb08a"
+    font-family="system-ui, sans-serif"
+    font-size="32"
+    font-weight="500"
+  >
+    GM · Deploy · Badges on Base
+  </text>
+  <rect x="520" y="392" width="420" height="6" rx="3" fill="#b8ff3c"/>
+</svg>
