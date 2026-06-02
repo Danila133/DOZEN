@@ -5,46 +5,60 @@
       <stop offset="50%" stop-color="#b8ff3c"/>
       <stop offset="100%" stop-color="#7ee081"/>
     </linearGradient>
-    <radialGradient id="bgGlow" cx="30%" cy="40%" r="70%">
-      <stop offset="0%" stop-color="#b8ff3c" stop-opacity="0.2"/>
+    <radialGradient id="bgGlow" cx="22%" cy="40%" r="68%">
+      <stop offset="0%" stop-color="#b8ff3c" stop-opacity="0.22"/>
       <stop offset="100%" stop-color="#0c1202" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
   <rect width="1200" height="628" fill="#0c1202"/>
   <rect width="1200" height="628" fill="url(#bgGlow)"/>
+  <rect
+    x="32"
+    y="32"
+    width="1136"
+    height="564"
+    fill="none"
+    stroke="#b8ff3c"
+    stroke-width="6"
+    opacity="0.45"
+  />
 
-  <g transform="translate(140 114)">
-    <ellipse cx="200" cy="200" rx="180" ry="140" fill="url(#cap)"/>
+  <g transform="translate(120 114)">
+    <rect width="400" height="400" fill="#141a0a" stroke="#3d6b28" stroke-width="4" rx="8"/>
+    <circle cx="72" cy="64" r="4" fill="#b8ff3c" opacity="0.35"/>
+    <circle cx="328" cy="80" r="3" fill="#7ee081" opacity="0.4"/>
+    <ellipse cx="200" cy="208" rx="168" ry="132" fill="url(#cap)"/>
     <path
       fill="#1a2212"
       stroke="#3d6b28"
       stroke-width="8"
-      d="M 120 220 Q 120 360 150 400 H 250 Q 280 360 280 220 Z"
+      d="M 128 228 Q 128 352 156 388 H 244 Q 272 352 272 228 Z"
     />
-    <ellipse cx="155" cy="175" rx="40" ry="22" fill="#fff" opacity="0.1"/>
+    <ellipse cx="158" cy="178" rx="38" ry="20" fill="#fff" opacity="0.1"/>
+    <rect x="56" y="352" width="288" height="8" rx="4" fill="#b8ff3c"/>
   </g>
 
   <text
-    x="520"
-    y="300"
+    x="620"
+    y="288"
     fill="#eef6e8"
-    font-family="system-ui, sans-serif"
-    font-size="96"
+    font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="108"
     font-weight="700"
-    letter-spacing="-0.03em"
+    letter-spacing="-0.02em"
   >
     DOZEN
   </text>
   <text
-    x="520"
-    y="360"
+    x="624"
+    y="352"
     fill="#9cb08a"
-    font-family="system-ui, sans-serif"
-    font-size="32"
+    font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="30"
     font-weight="500"
   >
-    GM · Deploy · Badges on Base
+    Grow your grove on Base — GM, deploy, earn badges
   </text>
-  <rect x="520" y="392" width="420" height="6" rx="3" fill="#b8ff3c"/>
+  <rect x="620" y="384" width="480" height="6" rx="3" fill="#b8ff3c"/>
 </svg>

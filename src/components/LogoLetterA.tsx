@@ -7,10 +7,10 @@ type LogoLetterAProps = {
   className?: string;
 };
 
-/** Stylized A from public/icon.svg — underline included */
+/** Legacy A mark — Spore Grove gradient (prefer LogoLetterD for $D) */
 export function LogoLetterA({ size = 12, className = "" }: LogoLetterAProps) {
   const uid = useId().replace(/:/g, "");
-  const gradId = `logo-a-blood-${uid}`;
+  const gradId = `logo-a-spore-${uid}`;
 
   return (
     <svg
@@ -29,9 +29,9 @@ export function LogoLetterA({ size = 12, className = "" }: LogoLetterAProps) {
           y2="404"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#ff2d55" />
-          <stop offset="52%" stopColor="#ff6b35" />
-          <stop offset="100%" stopColor="#ff5070" />
+          <stop offset="0%" stopColor="#c8ff5c" />
+          <stop offset="52%" stopColor="#b8ff3c" />
+          <stop offset="100%" stopColor="#7ee081" />
         </linearGradient>
       </defs>
       <path
@@ -53,7 +53,7 @@ export function LogoLetterA({ size = 12, className = "" }: LogoLetterAProps) {
           Z
         "
       />
-      <rect x="108" y="428" width="296" height="8" fill="#ff2d55" />
+      <rect x="108" y="428" width="296" height="8" fill="#b8ff3c" />
     </svg>
   );
 }
