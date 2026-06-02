@@ -11,15 +11,17 @@ import {
   getAppSplashUrl,
 } from "@/config/appAssets";
 
-/** Fill after domain verification at https://farcaster.xyz/~/developers/mini-apps/manifest */
+/** Domain verified at https://farcaster.xyz/~/developers/mini-apps/manifest */
 export const FARCASTER_ACCOUNT_ASSOCIATION: {
   header: string;
   payload: string;
   signature: string;
 } = {
-  header: "",
-  payload: "",
-  signature: "",
+  header:
+    "eyJmaWQiOjc4MDQ5MSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweEE5MmZmOEIwQ0UwZkZERjI3MDkzMjJmMzRDMTkxM0MyRkJDOTgxMjQifQ",
+  payload: "eyJkb21haW4iOiJkb3plbi10YXUudmVyY2VsLmFwcCJ9",
+  signature:
+    "TlvRRr09HE/K0kHfhJ/6mW++hj8TjmJdF500J5H/ZM06eFtdzDoHjq3Mxs9j2RNopqzfia6yuRbK6fFErJfxbxw=",
 };
 
 export const FARCASTER_BUTTON_TITLE = "Open app";

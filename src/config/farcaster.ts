@@ -11,8 +11,8 @@ import {
 
 export const FARCASTER_APP_NAME = APP_NAME;
 
-/** Set after registering the mini app on Farcaster */
-export const FARCASTER_MINIAPP_URL = "http://localhost:3000";
+/** Production mini app URL (local dev still uses localhost via env) */
+export const FARCASTER_MINIAPP_URL = "https://dozen-tau.vercel.app";
 
 export function getSiteUrl() {
   return CANONICAL_SITE_URL;
