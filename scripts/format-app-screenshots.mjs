@@ -6,6 +6,7 @@ import sharp from "sharp";
 /** Base App store requirement */
 const TARGET_WIDTH = 1284;
 const TARGET_HEIGHT = 2778;
+const BG = "#0c1202";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const sourceDir = join(root, "assets", "screenshots-source");
@@ -28,13 +29,15 @@ for (const [index, name] of sources.entries()) {
 
   await sharp(input)
     .resize(TARGET_WIDTH, TARGET_HEIGHT, {
-      fit: "fill",
+      fit: "cover",
+      position: "centre",
+      background: BG,
     })
     .png({ compressionLevel: 9 })
     .toFile(output);
 
   const meta = await sharp(output).metadata();
-  console.log(`${output} → ${meta.width}×${meta.height}`);
+  console.log(`${name} → ${output} (${meta.width}×${meta.height})`);
 }
 
-console.log(`Done. ${sources.length} screenshot(s) in ${outDir}`);
+console.log(`Done. ${sources.length} screenshot(s) → ${outDir}`);
