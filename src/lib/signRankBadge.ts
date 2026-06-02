@@ -3,7 +3,7 @@ import { privateKeyToAccount } from "viem/accounts";
 
 /** Set by scripts/sync-deployments.mjs after deploy — must match BadgeNFT.rankSigner */
 export const RANK_SIGNER_ADDRESS =
-  "0x1261bc5b8A3CEEe9D17a1Fd0d57a6D34bF48B81a" as const;
+  "0xAD52cDAaFD927f5548d4347B7300bA8710d3E6A4" as const;
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000" as const;
 

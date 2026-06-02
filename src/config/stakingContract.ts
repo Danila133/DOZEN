@@ -2,7 +2,7 @@ import { DEPLOY_CHAIN_ID } from "@/config/contract";
 
 /** Set after deploying StakePool.sol */
 export const STAKE_POOL_ADDRESS: `0x${string}` =
-  "0x0000000000000000000000000000000000000000";
+  "0x9eEB4D6FCdd89FD309543E1568DF244b388FeFC0";
 
 export const isStakePoolConfigured =
   STAKE_POOL_ADDRESS !== "0x0000000000000000000000000000000000000000";

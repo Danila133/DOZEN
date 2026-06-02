@@ -2,7 +2,7 @@ import { DEPLOY_CHAIN_ID } from "@/config/contract";
 
 /** Set after deploying BadgeNFT.sol (pass Hub address to constructor) */
 export const BADGE_NFT_ADDRESS: `0x${string}` =
-  "0x0000000000000000000000000000000000000000";
+  "0x2b6daB492e789cE54b77506E0970ccA5F492aa65";
 
 export const isBadgeContractConfigured =
   BADGE_NFT_ADDRESS !== "0x0000000000000000000000000000000000000000";

@@ -1,6 +1,6 @@
 /** Set after deploying AppToken.sol + Hub.setAirdropToken */
 export const APP_TOKEN_ADDRESS: `0x${string}` =
-  "0x0000000000000000000000000000000000000000";
+  "0x052a57d62664b648855D47Bd0352B1a4e370ba43";
 
 export const isAirdropTokenConfigured =
   APP_TOKEN_ADDRESS !== "0x0000000000000000000000000000000000000000";
