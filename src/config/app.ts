@@ -10,8 +10,12 @@ export const FARCASTER_DESCRIPTION =
   "GM, deploy tokens, refer friends, and earn NFT badges on Base.";
 /** Base mini app ID — https://docs.base.org/mini-apps (set after registering) */
 export const BASE_APP_ID = "6a1f5559771ed4d9a6a2c585";
-/** Base Builder Code — tags txs for base.dev analytics (Settings → Builder Codes) */
-export const BASE_BUILDER_CODE = "";
+/**
+ * Base Builder Code (ERC-8021 dataSuffix on every wallet tx).
+ * Attributes GM/deploy/boost/etc. to DOZEN on https://base.dev — analytics, leaderboard, rewards.
+ * @see https://docs.base.org/apps/builder-codes/app-developers
+ */
+export const BASE_BUILDER_CODE = "bc_wnu57oz2";
 /** Production site — used for share links when running on localhost */
 export const PRODUCTION_SITE_URL = "https://dozen-tau.vercel.app";
 /** Talent Protocol verification — optional */
