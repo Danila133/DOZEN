@@ -8,7 +8,13 @@ import {
   BASE_APP_ID,
   TALENT_APP_PROJECT_VERIFICATION,
 } from "@/config/app";
-import { APP_ICON_PATH, APP_IMAGE_PATH, CANONICAL_SITE_URL } from "@/config/appAssets";
+import {
+  APP_ICON_PATH,
+  APP_THUMBNAIL_HEIGHT,
+  APP_THUMBNAIL_PATH,
+  APP_THUMBNAIL_WIDTH,
+  CANONICAL_SITE_URL,
+} from "@/config/appAssets";
 import { buildFcMiniAppEmbed, FARCASTER_APP_NAME } from "@/config/farcaster";
 import { getConfig } from "@/config/wagmi";
 import { ProvidersShell } from "./providers-loader";
@@ -57,7 +63,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: FARCASTER_APP_NAME,
     description: APP_DESCRIPTION,
-    images: [{ url: APP_IMAGE_PATH, width: 1200, height: 628 }],
+    images: [
+      {
+        url: APP_THUMBNAIL_PATH,
+        width: APP_THUMBNAIL_WIDTH,
+        height: APP_THUMBNAIL_HEIGHT,
+      },
+    ],
   },
   other: metadataOther,
 };

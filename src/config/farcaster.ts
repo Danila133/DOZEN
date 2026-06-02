@@ -1,6 +1,6 @@
 import { APP_NAME } from "@/config/app";
 import {
-  APP_IMAGE_PATH,
+  APP_THUMBNAIL_PATH,
   CANONICAL_SITE_URL,
   getAppSplashUrl,
 } from "@/config/appAssets";
@@ -23,7 +23,7 @@ export function buildFcMiniAppEmbed(siteUrl: string = CANONICAL_SITE_URL) {
 
   return {
     version: "1",
-    imageUrl: `${CANONICAL_SITE_URL}${APP_IMAGE_PATH}`,
+    imageUrl: `${CANONICAL_SITE_URL}${APP_THUMBNAIL_PATH}`,
     button: {
       title: FARCASTER_BUTTON_TITLE,
       action: {

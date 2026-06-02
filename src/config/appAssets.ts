@@ -21,10 +21,18 @@ function resolveCanonicalSiteUrl(): string {
 
 export const CANONICAL_SITE_URL = resolveCanonicalSiteUrl();
 
+/** Square app icon — 1:1 */
 export const APP_ICON_PATH = "/icon.png";
 export const APP_SPLASH_PATH = "/splash.png";
-export const APP_IMAGE_PATH = "/image.png";
-export const APP_HERO_PATH = "/image.png";
+
+/** Farcaster / Base store thumbnail — 1.91:1 (1200×628) */
+export const APP_THUMBNAIL_PATH = "/app-thumbnail.png";
+/** @deprecated Use APP_THUMBNAIL_PATH */
+export const APP_IMAGE_PATH = APP_THUMBNAIL_PATH;
+export const APP_HERO_PATH = APP_THUMBNAIL_PATH;
+
+export const APP_THUMBNAIL_WIDTH = 1200;
+export const APP_THUMBNAIL_HEIGHT = 628;
 
 export function getSiteOrigin(requestHost?: string | null) {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
@@ -55,10 +63,14 @@ export function getAppSplashUrl(origin?: string) {
   return appAsset(APP_SPLASH_PATH, origin);
 }
 
+export function getAppThumbnailUrl(origin?: string) {
+  return appAsset(APP_THUMBNAIL_PATH, origin);
+}
+
 export function getAppImageUrl(origin?: string) {
-  return appAsset(APP_IMAGE_PATH, origin);
+  return getAppThumbnailUrl(origin);
 }
 
 export function getAppHeroUrl(origin?: string) {
-  return appAsset(APP_HERO_PATH, origin);
+  return getAppThumbnailUrl(origin);
 }

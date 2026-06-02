@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 1. `src/config/app.ts` — name, slug, Base App ID, builder code, production URL
 2. `src/config/manifest.ts` — Farcaster domain verification
-3. `public/icon.svg` + `public/og.svg` — edit, then `npm run brand` to regenerate PNGs
+3. `public/icon.svg` (1:1) + `public/app-thumbnail.svg` (1.91:1) — then `npm run brand`
 4. `src/app/globals.css` — retheme colors
 5. `src/config/contract.ts` and `src/config/badgeContract.ts` — after deploy
 

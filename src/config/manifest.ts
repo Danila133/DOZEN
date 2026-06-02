@@ -7,8 +7,8 @@ import {
   CANONICAL_SITE_URL,
   getAppHeroUrl,
   getAppIconUrl,
-  getAppImageUrl,
   getAppSplashUrl,
+  getAppThumbnailUrl,
 } from "@/config/appAssets";
 
 /** Domain verified at https://farcaster.xyz/~/developers/mini-apps/manifest */
@@ -33,7 +33,7 @@ function buildMiniappMetadata(origin: string) {
     name: APP_NAME,
     homeUrl: origin,
     iconUrl: getAppIconUrl(origin),
-    imageUrl: getAppImageUrl(origin),
+    imageUrl: getAppThumbnailUrl(origin),
     heroImageUrl: getAppHeroUrl(origin),
     buttonTitle: FARCASTER_BUTTON_TITLE,
     splashImageUrl: getAppSplashUrl(origin),
