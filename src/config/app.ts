@@ -15,6 +15,7 @@ export const BASE_BUILDER_CODE = "";
 /** Production site — used for share links when running on localhost */
 export const PRODUCTION_SITE_URL = "https://dozen-tau.vercel.app";
 /** Talent Protocol verification — optional */
-export const TALENT_APP_PROJECT_VERIFICATION = "";
+export const TALENT_APP_PROJECT_VERIFICATION =
+  "d85afbbaf218f346123b41ff31d95c69b0a69fcf315e8b6c0dd16dbdcd86fae1af6a2ad067f0db1c0e548ce474f6f996017dc53ddff6fada041b50661cfb5e55";
 export const APP_DESCRIPTION =
   "GM, deploy tokens, refer friends, and earn NFT badges on Base.";
