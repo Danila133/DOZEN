@@ -11,6 +11,7 @@ import { PreviewBanner } from "@/components/PreviewBanner";
 import { ConnectWallet } from "@/components/ConnectWallet";
 import { useWrongNetwork } from "@/components/SwitchToBaseBanner";
 import { DeployPanel } from "@/components/DeployPanel";
+import { FarmBoostButton } from "@/components/FarmBoostButton";
 import { GmPanel } from "@/components/GmPanel";
 import { PointsRulesCard } from "@/components/PointsRulesCard";
 import { BOOST_GM_MULTIPLIER } from "@/config/contract";
@@ -81,11 +82,17 @@ export function HomeApp() {
       <div className="uni-card px-4 py-5">
         <ConnectWallet />
         {hubReady && isConnected && !wrongChain && (
-          <div className="uni-card-inset mt-2.5 flex items-center justify-between gap-2 px-3 py-2">
-            <p className="uni-label shrink-0 leading-none">Total points</p>
-            <p className="uni-mono text-lg font-semibold leading-none uni-text-accent">
-              {points?.toString() ?? "0"}
-            </p>
+          <div className="uni-card-inset mt-2.5 flex items-center justify-between gap-3 px-3 py-2">
+            <div className="min-w-0">
+              <p className="uni-label leading-none">Total points</p>
+              <p className="uni-mono mt-1 text-lg font-semibold leading-none uni-text-accent">
+                {points?.toString() ?? "0"}
+              </p>
+            </div>
+            <FarmBoostButton
+              disabled={!canAct}
+              onSuccess={() => void refreshStats()}
+            />
           </div>
         )}
       </div>
