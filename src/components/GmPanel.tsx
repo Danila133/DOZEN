@@ -111,18 +111,12 @@ export function GmPanel({ disabled }: GmPanelProps) {
   const paidPts = pointsForGm(true, boostActive);
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-2">
       {boostActive && (
         <p className="uni-caption text-center text-[var(--uni-success)]">
-          {BOOST_GM_MULTIPLIER}× Boost — GM & deploy earn double points
+          {BOOST_GM_MULTIPLIER}× Boost active
         </p>
       )}
-      <div className="grid grid-cols-2 gap-2">
-        <Stat label="Your GMs" value={gmCount?.toString() ?? "0"} />
-        <Stat label="Points" value={points?.toString() ?? "0"} />
-        <Stat label="Free today" value={`${freeLeft}/${FREE_GM_PER_DAY}`} />
-        <Stat label="Per GM" value={`+${freePts} / +${paidPts}`} />
-      </div>
 
       <button
         type="button"
@@ -146,6 +140,13 @@ export function GmPanel({ disabled }: GmPanelProps) {
           ? `Paid GM · +${paidPts} pts`
           : `Free GM · +${freePts} pts · ${freeLeft} left today`}
       </p>
+
+      <div className="grid grid-cols-4 gap-1.5">
+        <Stat label="GMs" value={gmCount?.toString() ?? "0"} />
+        <Stat label="Pts" value={points?.toString() ?? "0"} />
+        <Stat label="Free" value={`${freeLeft}/${FREE_GM_PER_DAY}`} />
+        <Stat label="Earn" value={`+${freePts}/${paidPts}`} />
+      </div>
 
       {writeError && (
         <p className="uni-caption text-center text-[var(--uni-critical)]">
@@ -179,9 +180,9 @@ export function GmPanel({ disabled }: GmPanelProps) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="uni-card-inset px-3 py-2.5">
-      <p className="uni-label">{label}</p>
-      <p className="uni-mono mt-0.5 text-lg font-semibold text-[var(--uni-text)]">
+    <div className="uni-card-inset px-2 py-1.5 text-center">
+      <p className="uni-label text-[0.65rem] leading-none">{label}</p>
+      <p className="uni-mono mt-0.5 text-sm font-semibold leading-none text-[var(--uni-text)]">
         {value}
       </p>
     </div>

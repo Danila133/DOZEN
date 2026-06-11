@@ -5,11 +5,11 @@ import { AIRDROP_MIN_POINTS } from "@/config/airdrop";
 import { POINTS_RULES } from "@/config/points";
 import { MIN_STAKE_A } from "@/config/staking";
 
-export function PointsRulesCard() {
+export function PointsRulesCard({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="uni-card-inset px-4 py-3">
+    <div className={`uni-card-inset ${compact ? "px-3 py-2" : "px-4 py-3"}`}>
       <p className="uni-label">Points System</p>
-      <div className="uni-caption mt-2 space-y-2">
+      <div className={`uni-caption ${compact ? "mt-1.5 space-y-1" : "mt-2 space-y-2"}`}>
         <div className="space-y-1">
           <p>Free GM — +{POINTS_RULES.freeGm} pts</p>
           <p>Paid GM — +{POINTS_RULES.paidGm} pts</p>

@@ -60,12 +60,12 @@ export function HomeApp() {
       <AppNav />
       <PreviewBanner />
 
-      <header className="uni-card px-5 py-5 text-center">
+      <header className="uni-card px-4 py-3 text-center">
         <p className="uni-eyebrow">
           {inMiniApp ? "Farcaster" : "Web"} · Base
         </p>
-        <h1 className="uni-title mt-2 text-3xl">{APP_NAME}</h1>
-        <p className="uni-body mt-2 text-sm">{APP_TAGLINE}</p>
+        <h1 className="uni-title mt-1 text-2xl">{APP_NAME}</h1>
+        <p className="uni-caption mt-1">{APP_TAGLINE}</p>
       </header>
 
       {!hubReady && (
@@ -79,13 +79,19 @@ export function HomeApp() {
         </div>
       )}
 
-      <div className="uni-card px-4 py-5">
-        <ConnectWallet />
-        {hubReady && isConnected && !wrongChain && (
-          <div className="uni-card-inset mt-2.5 flex items-center justify-between gap-3 px-3 py-2">
+      {!(hubReady && isConnected && !wrongChain) && (
+        <div className="uni-card px-4 py-3">
+          <ConnectWallet />
+        </div>
+      )}
+
+      {hubReady && isConnected && !wrongChain && (
+        <div className="uni-card p-3">
+          <ConnectWallet />
+          <div className="uni-card-inset mt-2 flex items-center justify-between gap-2 px-2.5 py-1.5">
             <div className="min-w-0">
-              <p className="uni-label leading-none">Total points</p>
-              <p className="uni-mono mt-1 text-lg font-semibold leading-none uni-text-accent">
+              <p className="uni-label text-[0.65rem] leading-none">Points</p>
+              <p className="uni-mono mt-0.5 text-base font-semibold leading-none uni-text-accent">
                 {points?.toString() ?? "0"}
               </p>
             </div>
@@ -94,12 +100,8 @@ export function HomeApp() {
               onSuccess={() => void refreshStats()}
             />
           </div>
-        )}
-      </div>
 
-      {hubReady && isConnected && !wrongChain && (
-        <div className="uni-card p-4">
-          <div className="uni-tabs mb-4">
+          <div className="uni-tabs mt-2.5 mb-2">
             <div className="uni-tab-wrap">
               <button
                 type="button"
@@ -143,30 +145,27 @@ export function HomeApp() {
         </div>
       )}
 
-      {hubReady && <PointsRulesCard />}
-
-      {isBadgeReadyForUi() && (
-        <Link href="/badges" className="uni-btn uni-btn-secondary block text-center">
-          View badges · GM &amp; Deploy milestones
-        </Link>
-      )}
+      {hubReady && <PointsRulesCard compact />}
 
       {hubReady && (
-        <Link href="/referral" className="uni-btn uni-btn-secondary block text-center">
-          Referral · +{POINTS_PER_REFERRAL} pts
-        </Link>
-      )}
-
-      {hubReady && (
-        <Link href="/leaderboard" className="uni-btn uni-btn-secondary block text-center">
-          Leaderboard
-        </Link>
+        <div className="grid grid-cols-3 gap-1.5">
+          {isBadgeReadyForUi() && (
+            <Link href="/badges" className="uni-btn uni-btn-secondary uni-btn-sm text-center">
+              Badges
+            </Link>
+          )}
+          <Link href="/referral" className="uni-btn uni-btn-secondary uni-btn-sm text-center">
+            Refer +{POINTS_PER_REFERRAL}
+          </Link>
+          <Link href="/leaderboard" className="uni-btn uni-btn-secondary uni-btn-sm text-center">
+            Leaders
+          </Link>
+        </div>
       )}
 
       {!isBadgeReadyForUi() && hubReady && (
         <p className="uni-caption text-center">
-          Deploy <span className="uni-code">BadgeNFT.sol</span> and set{" "}
-          <span className="uni-code">BADGE_NFT_ADDRESS</span> for NFT badges.
+          Deploy <span className="uni-code">BadgeNFT.sol</span> for NFT badges.
         </p>
       )}
 
@@ -174,8 +173,7 @@ export function HomeApp() {
         <p className="uni-caption text-center">
           Deploys: <span className="uni-mono">{deployCount?.toString() ?? "0"}</span>
           {" · "}
-          Earn <span className="uni-text-accent font-semibold">{TOKEN_SYMBOL}</span> after
-          token deploy
+          Earn <span className="uni-text-accent font-semibold">{TOKEN_SYMBOL}</span> on deploy
         </p>
       )}
     </>
