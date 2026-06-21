@@ -8,7 +8,9 @@ const getCachedLeaderboard = unstable_cache(
   { revalidate: 60 },
 );
 
-export const revalidate = 60;
+/** Skip build-time static generation — RPC indexing can exceed 60s on Vercel */
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function GET() {
   try {
