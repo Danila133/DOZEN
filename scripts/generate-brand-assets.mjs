@@ -20,14 +20,16 @@ const THUMB_MAX_BYTES = 1024 * 1024;
 const iconSvg = readFileSync(join(publicDir, "icon.svg"));
 const thumbSvg = readFileSync(join(publicDir, "app-thumbnail.svg"));
 
-/** Square icons — 1:1 */
-const iconPng = sharp(iconSvg).resize(512, 512, {
+/** Square icons — 1:1 (Farcaster iconUrl requires 1024×1024 PNG, no alpha) */
+const iconPng = sharp(iconSvg).resize(1024, 1024, {
   fit: "contain",
   background: "#0c1202",
 });
 
-await iconPng.clone().png({ compressionLevel: 9 }).toFile(join(publicDir, "icon.png"));
-await iconPng.clone().png({ compressionLevel: 9 }).toFile(join(publicDir, "splash.png"));
+const iconRgb = iconPng.clone().flatten({ background: "#0c1202" });
+
+await iconRgb.clone().png({ compressionLevel: 9 }).toFile(join(publicDir, "icon.png"));
+await iconRgb.clone().resize(512, 512).png({ compressionLevel: 9 }).toFile(join(publicDir, "splash.png"));
 await iconPng
   .clone()
   .resize(192, 192)
