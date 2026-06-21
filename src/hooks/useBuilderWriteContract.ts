@@ -1,21 +1,19 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { encodeFunctionData, type Abi } from "viem";
 import {
   useAccount,
-  useSendCalls,
-  useWaitForCallsStatus,
+  usePublicClient,
   useWriteContract,
 } from "wagmi";
+import { encodeFunctionData, type Abi, type Hex } from "viem";
 
-import {
-  BUILDER_CALLS_CAPABILITIES,
-  BUILDER_DATA_SUFFIX,
-} from "@/config/builder";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { DEPLOY_CHAIN_ID } from "@/config/contract";
+import { isDelegatedEoa } from "@/lib/isDelegatedEoa";
+import { sendSmartWalletWrite } from "@/lib/sendSmartWalletWrite";
 
-type BuilderWriteParams = {
+type ContractWriteRequest = {
   address: `0x${string}`;
   abi: Abi | readonly unknown[];
   functionName: string;
@@ -24,113 +22,102 @@ type BuilderWriteParams = {
   value?: bigint;
 };
 
-function preferSendCalls(connectorId?: string) {
-  return Boolean(connectorId && connectorId !== "farcaster");
-}
+const SMART_WALLET_CONNECTORS = new Set(["farcaster", "baseAccount"]);
 
-/** Browser wallets need wallet_sendCalls + dataSuffix; mini app uses writeContract */
+/**
+ * Farcaster / Base Account / EIP-7702 wallets strip ERC-8021 suffixes from
+ * eth_sendTransaction. Route those through wallet_sendCalls with tagged calldata.
+ */
 export function useBuilderWriteContract() {
-  const { connector } = useAccount();
-  const [callsId, setCallsId] = useState<string | undefined>();
+  const { address, connector } = useAccount();
+  const publicClient = usePublicClient();
+  const { writeContractAsync, reset: resetWrite } = useWriteContract();
 
-  const write = useWriteContract();
-  const send = useSendCalls();
-
-  const callsStatus = useWaitForCallsStatus({
-    id: callsId,
-    query: { enabled: Boolean(callsId) },
-  });
-
-  const callsHash =
-    callsStatus.data?.status === "success"
-      ? callsStatus.data.receipts?.[0]?.transactionHash
-      : undefined;
-
-  const hash = write.data ?? callsHash;
-  const awaitingCallsHash = Boolean(
-    callsId && !callsHash && callsStatus.data?.status !== "failure",
-  );
-  const isPending = write.isPending || send.isPending || awaitingCallsHash;
-  const error = write.error ?? send.error ?? callsStatus.error;
+  const [data, setData] = useState<Hex | undefined>();
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   const reset = useCallback(() => {
-    write.reset();
-    send.reset();
-    setCallsId(undefined);
-  }, [send, write]);
+    setData(undefined);
+    setError(null);
+    setIsPending(false);
+    resetWrite();
+  }, [resetWrite]);
 
-  const writeWithSuffix = useCallback(
-    (params: BuilderWriteParams) => {
-      write.writeContract({
-        address: params.address,
-        abi: params.abi,
-        functionName: params.functionName,
-        args: params.args,
-        chainId: params.chainId ?? DEPLOY_CHAIN_ID,
-        ...(params.value !== undefined ? { value: params.value } : {}),
-        dataSuffix: BUILDER_DATA_SUFFIX,
-      } as Parameters<typeof write.writeContract>[0]);
+  const writeContractAsyncWithBuilder = useCallback(
+    async (variables: ContractWriteRequest) => {
+      if (!address) {
+        throw new Error("Connect a wallet first.");
+      }
+
+      setIsPending(true);
+      setError(null);
+      setData(undefined);
+
+      const chainId = variables.chainId ?? DEPLOY_CHAIN_ID;
+      const callData = encodeFunctionData({
+        abi: variables.abi as Abi,
+        functionName: variables.functionName,
+        args: variables.args,
+      });
+
+      try {
+        const delegated =
+          SMART_WALLET_CONNECTORS.has(connector?.id ?? "") ||
+          (await isDelegatedEoa(publicClient, address));
+
+        if (delegated) {
+          if (!connector) {
+            throw new Error("Wallet connector unavailable.");
+          }
+
+          const hash = await sendSmartWalletWrite({
+            connector,
+            address,
+            chainId,
+            to: variables.address,
+            callData,
+            value: variables.value,
+          });
+
+          setData(hash);
+          return hash;
+        }
+
+        const hash = await writeContractAsync({
+          address: variables.address,
+          abi: variables.abi,
+          functionName: variables.functionName,
+          args: variables.args,
+          chainId,
+          ...(variables.value !== undefined ? { value: variables.value } : {}),
+          dataSuffix: BUILDER_DATA_SUFFIX,
+        } as Parameters<typeof writeContractAsync>[0]);
+
+        setData(hash);
+        return hash;
+      } catch (e) {
+        const err = e instanceof Error ? e : new Error(String(e));
+        setError(err);
+        throw err;
+      } finally {
+        setIsPending(false);
+      }
     },
-    [write],
+    [address, connector, publicClient, writeContractAsync],
   );
 
   const writeContract = useCallback(
-    (params: BuilderWriteParams) => {
-      reset();
-      const chainId = params.chainId ?? DEPLOY_CHAIN_ID;
-
-      if (!preferSendCalls(connector?.id)) {
-        writeWithSuffix(params);
-        return;
-      }
-
-      const data = encodeFunctionData({
-        abi: params.abi as Abi,
-        functionName: params.functionName,
-        args: params.args ?? [],
-      });
-
-      send.mutate(
-        {
-          calls: [
-            {
-              to: params.address,
-              data,
-              value: params.value ?? BigInt(0),
-            },
-          ],
-          chainId,
-          capabilities: BUILDER_CALLS_CAPABILITIES,
-        },
-        {
-          onSuccess: (result) => setCallsId(result.id),
-          onError: () => writeWithSuffix(params),
-        },
-      );
+    (variables: ContractWriteRequest) => {
+      void writeContractAsyncWithBuilder(variables);
     },
-    [connector?.id, reset, send, writeWithSuffix],
-  );
-
-  const writeContractAsync = useCallback(
-    async (params: BuilderWriteParams) => {
-      reset();
-      return write.writeContractAsync({
-        address: params.address,
-        abi: params.abi,
-        functionName: params.functionName,
-        args: params.args,
-        chainId: params.chainId ?? DEPLOY_CHAIN_ID,
-        ...(params.value !== undefined ? { value: params.value } : {}),
-        dataSuffix: BUILDER_DATA_SUFFIX,
-      } as Parameters<typeof write.writeContractAsync>[0]);
-    },
-    [reset, write],
+    [writeContractAsyncWithBuilder],
   );
 
   return {
     writeContract,
-    writeContractAsync,
-    data: hash,
+    writeContractAsync: writeContractAsyncWithBuilder,
+    data,
     isPending,
     error,
     reset,
