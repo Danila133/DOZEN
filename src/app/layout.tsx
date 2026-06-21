@@ -3,11 +3,7 @@ import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 
-import {
-  APP_DESCRIPTION,
-  BASE_APP_ID,
-  TALENT_APP_PROJECT_VERIFICATION,
-} from "@/config/app";
+import { APP_DESCRIPTION, BASE_APP_ID, TALENT_APP_PROJECT_VERIFICATION } from "@/config/app";
 import {
   APP_ICON_PATH,
   APP_THUMBNAIL_HEIGHT,
@@ -88,6 +84,15 @@ export default async function RootLayout({
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="icon" href={APP_ICON_PATH} type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        {BASE_APP_ID ? (
+          <meta name="base:app_id" content={BASE_APP_ID} />
+        ) : null}
+        {TALENT_APP_PROJECT_VERIFICATION ? (
+          <meta
+            name="talentapp:project_verification"
+            content={TALENT_APP_PROJECT_VERIFICATION}
+          />
+        ) : null}
       </head>
       <body
         className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}

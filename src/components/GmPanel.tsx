@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   useWaitForTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 import { formatEther } from "viem";
 
@@ -15,9 +14,9 @@ import {
   HUB_CONTRACT_ADDRESS,
   hubAbi,
 } from "@/config/contract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { isPreviewMode } from "@/config/preview";
 import { pointsForGm } from "@/config/points";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { useHubStats } from "@/hooks/useHubStats";
 
 function explorerTxUrl(hash: string) {
@@ -49,7 +48,7 @@ export function GmPanel({ disabled }: GmPanelProps) {
     "previewGm" in hubStats ? hubStats.previewGm : undefined;
 
   const { data: hash, isPending, writeContract, error: writeError } =
-    useWriteContract();
+    useBuilderWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -105,7 +104,6 @@ export function GmPanel({ disabled }: GmPanelProps) {
       functionName: "gm",
       chainId: DEPLOY_CHAIN_ID,
       value: isPaidGm ? feeWei : BigInt(0),
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 

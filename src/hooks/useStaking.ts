@@ -6,7 +6,6 @@ import {
   usePublicClient,
   useReadContracts,
   useWaitForTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 import { formatUnits, maxUint256, parseUnits } from "viem";
 
@@ -16,7 +15,7 @@ import {
   isAirdropTokenConfigured,
 } from "@/config/airdropContract";
 import { DEPLOY_CHAIN_ID } from "@/config/contract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { MIN_STAKE_WEI } from "@/config/staking";
 import {
   STAKE_POOL_ADDRESS,
@@ -100,7 +99,7 @@ export function useStaking() {
     writeContractAsync,
     error: writeError,
     reset,
-  } = useWriteContract();
+  } = useBuilderWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -123,7 +122,6 @@ export function useStaking() {
           functionName: "approve",
           args: [STAKE_POOL_ADDRESS, maxUint256],
           chainId: DEPLOY_CHAIN_ID,
-          dataSuffix: BUILDER_DATA_SUFFIX,
         });
         await publicClient.waitForTransactionReceipt({ hash: approveHash });
       }
@@ -134,7 +132,6 @@ export function useStaking() {
         functionName: "stake",
         args: [amount],
         chainId: DEPLOY_CHAIN_ID,
-        dataSuffix: BUILDER_DATA_SUFFIX,
       });
     },
     [address, allowanceWei, publicClient, writeContractAsync],
@@ -148,7 +145,6 @@ export function useStaking() {
         functionName: "unstake",
         args: [amount],
         chainId: DEPLOY_CHAIN_ID,
-        dataSuffix: BUILDER_DATA_SUFFIX,
       });
     },
     [writeContractAsync],
@@ -160,7 +156,6 @@ export function useStaking() {
       abi: stakePoolAbi,
       functionName: "claimReward",
       chainId: DEPLOY_CHAIN_ID,
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }, [writeContractAsync]);
 
@@ -170,7 +165,6 @@ export function useStaking() {
       abi: stakePoolAbi,
       functionName: "exit",
       chainId: DEPLOY_CHAIN_ID,
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }, [writeContractAsync]);
 

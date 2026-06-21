@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   useWaitForTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 import { formatEther, parseUnits } from "viem";
 
@@ -14,9 +13,9 @@ import {
   HUB_CONTRACT_ADDRESS,
   hubAbi,
 } from "@/config/contract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { isPreviewMode } from "@/config/preview";
 import { pointsForDeploy } from "@/config/points";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { useHubStats } from "@/hooks/useHubStats";
 
 function explorerAddressUrl(address: string) {
@@ -68,7 +67,7 @@ export function DeployPanel({
   const isPaidDeploy = !freeDeployAvailable;
 
   const { data: hash, isPending, writeContract, error: writeError, reset } =
-    useWriteContract();
+    useBuilderWriteContract();
 
   const { isLoading: isConfirming, isSuccess, data: receipt } =
     useWaitForTransactionReceipt({ hash });
@@ -122,7 +121,6 @@ export function DeployPanel({
       args: [name, symbol, supply],
       chainId: DEPLOY_CHAIN_ID,
       value: isPaidDeploy ? feeWei : BigInt(0),
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 

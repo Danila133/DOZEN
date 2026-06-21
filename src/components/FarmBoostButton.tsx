@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { formatEther } from "viem";
 import {
   useWaitForTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 
 import {
@@ -14,7 +13,7 @@ import {
   HUB_CONTRACT_ADDRESS,
   hubAbi,
 } from "@/config/contract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { useHubStats } from "@/hooks/useHubStats";
 
 type FarmBoostButtonProps = {
@@ -44,7 +43,7 @@ export function FarmBoostButton({
   } = useHubStats();
 
   const { data: hash, isPending, writeContract, error: writeError } =
-    useWriteContract();
+    useBuilderWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -86,7 +85,6 @@ export function FarmBoostButton({
       functionName: "boost",
       chainId: DEPLOY_CHAIN_ID,
       value: isPaidBoost ? feeWei : BigInt(0),
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 

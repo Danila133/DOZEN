@@ -9,6 +9,7 @@ import {
 } from "wagmi";
 
 import { APP_SLUG } from "@/config/app";
+import { DEPLOY_CHAIN_ID } from "@/config/contract";
 import { SwitchToBaseBanner } from "@/components/SwitchToBaseBanner";
 import { useFarcasterMiniApp } from "@/hooks/useFarcasterMiniApp";
 
@@ -40,7 +41,7 @@ export function ConnectWallet() {
     if (typeof window !== "undefined") {
       sessionStorage.removeItem(WALLET_USER_DISCONNECTED_KEY);
     }
-    connect({ connector: target });
+    connect({ connector: target, chainId: DEPLOY_CHAIN_ID });
     setShowPicker(false);
   };
 

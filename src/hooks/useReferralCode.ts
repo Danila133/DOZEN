@@ -5,7 +5,6 @@ import {
   useAccount,
   useReadContract,
   useWaitForTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 
 import {
@@ -13,7 +12,7 @@ import {
   hubAbi,
   isContractConfigured,
 } from "@/config/contract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { isPreviewMode } from "@/config/preview";
 import { usePreviewHubStats } from "@/context/PreviewStateContext";
 import {
@@ -71,7 +70,7 @@ export function useReferralCode() {
     reset: resetRegister,
     error: registerError,
     isPending: isRegisterPending,
-  } = useWriteContract();
+  } = useBuilderWriteContract();
 
   const {
     writeContract: writeRedeem,
@@ -79,7 +78,7 @@ export function useReferralCode() {
     reset: resetRedeem,
     error: redeemError,
     isPending: isRedeemPending,
-  } = useWriteContract();
+  } = useBuilderWriteContract();
 
   const { isLoading: isRegisterConfirming, isSuccess: registerSuccess } =
     useWaitForTransactionReceipt({ hash: registerHash });
@@ -99,7 +98,6 @@ export function useReferralCode() {
       address: HUB_CONTRACT_ADDRESS,
       abi: hubAbi,
       functionName: "registerReferralCode",
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }, [enabled, isCodeRegistered, resetRegister, writeRegister]);
 
@@ -111,7 +109,6 @@ export function useReferralCode() {
       abi: hubAbi,
       functionName: "redeemReferralCode",
       args: [normalizedFriendCode],
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }, [canRedeemFriendCode, normalizedFriendCode, resetRedeem, writeRedeem]);
 

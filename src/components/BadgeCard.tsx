@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { formatUnits } from "viem";
-import { useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useAccount, useWaitForTransactionReceipt } from "wagmi";
 
 import {
   badgeTierChipClass,
@@ -18,7 +18,7 @@ import {
   DEPLOY_CHAIN_ID,
   badgeNftAbi,
 } from "@/config/badgeContract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { RANK_SIGNER_ADDRESS } from "@/lib/signRankBadge";
 
 type BadgeCardProps = {
@@ -52,7 +52,7 @@ export function BadgeCard({
   const [mintError, setMintError] = useState<string | null>(null);
 
   const { writeContract, data: hash, isPending, error, reset } =
-    useWriteContract();
+    useBuilderWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -75,7 +75,6 @@ export function BadgeCard({
       functionName: "mint",
       args: [BigInt(badge.id)],
       chainId: DEPLOY_CHAIN_ID,
-      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 
@@ -120,7 +119,6 @@ export function BadgeCard({
           json.signature as `0x${string}`,
         ],
         chainId: DEPLOY_CHAIN_ID,
-        dataSuffix: BUILDER_DATA_SUFFIX,
       });
     } catch {
       setMintError("Rank mint request failed");

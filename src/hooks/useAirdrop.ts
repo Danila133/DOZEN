@@ -6,7 +6,6 @@ import {
   useReadContract,
   useReadContracts,
   useWaitForTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 import { formatUnits } from "viem";
 
@@ -21,7 +20,7 @@ import {
   hubAbi,
   isContractConfigured,
 } from "@/config/contract";
-import { BUILDER_DATA_SUFFIX } from "@/config/builder";
+import { useBuilderWriteContract } from "@/hooks/useBuilderWriteContract";
 import { AIRDROP_MIN_POINTS, POINTS_PER_A_TOKEN } from "@/config/airdrop";
 import { isPreviewMode } from "@/config/preview";
 import { usePreviewHubStats } from "@/context/PreviewStateContext";
@@ -97,7 +96,7 @@ export function useAirdrop() {
     writeContract,
     error: writeError,
     reset,
-  } = useWriteContract();
+  } = useBuilderWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -111,7 +110,6 @@ export function useAirdrop() {
         functionName: "claimAirdrop",
         args: [pointsToSpend],
         chainId: DEPLOY_CHAIN_ID,
-        dataSuffix: BUILDER_DATA_SUFFIX,
       });
     },
     [writeContract],
