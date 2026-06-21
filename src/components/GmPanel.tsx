@@ -15,6 +15,7 @@ import {
   HUB_CONTRACT_ADDRESS,
   hubAbi,
 } from "@/config/contract";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { isPreviewMode } from "@/config/preview";
 import { pointsForGm } from "@/config/points";
 import { useHubStats } from "@/hooks/useHubStats";
@@ -104,6 +105,7 @@ export function GmPanel({ disabled }: GmPanelProps) {
       functionName: "gm",
       chainId: DEPLOY_CHAIN_ID,
       value: isPaidGm ? feeWei : BigInt(0),
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 

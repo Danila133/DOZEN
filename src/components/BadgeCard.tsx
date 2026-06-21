@@ -18,6 +18,7 @@ import {
   DEPLOY_CHAIN_ID,
   badgeNftAbi,
 } from "@/config/badgeContract";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { RANK_SIGNER_ADDRESS } from "@/lib/signRankBadge";
 
 type BadgeCardProps = {
@@ -74,6 +75,7 @@ export function BadgeCard({
       functionName: "mint",
       args: [BigInt(badge.id)],
       chainId: DEPLOY_CHAIN_ID,
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 
@@ -118,6 +120,7 @@ export function BadgeCard({
           json.signature as `0x${string}`,
         ],
         chainId: DEPLOY_CHAIN_ID,
+        dataSuffix: BUILDER_DATA_SUFFIX,
       });
     } catch {
       setMintError("Rank mint request failed");

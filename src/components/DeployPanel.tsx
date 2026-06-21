@@ -14,6 +14,7 @@ import {
   HUB_CONTRACT_ADDRESS,
   hubAbi,
 } from "@/config/contract";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { isPreviewMode } from "@/config/preview";
 import { pointsForDeploy } from "@/config/points";
 import { useHubStats } from "@/hooks/useHubStats";
@@ -121,6 +122,7 @@ export function DeployPanel({
       args: [name, symbol, supply],
       chainId: DEPLOY_CHAIN_ID,
       value: isPaidDeploy ? feeWei : BigInt(0),
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 

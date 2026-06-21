@@ -14,6 +14,7 @@ import {
   HUB_CONTRACT_ADDRESS,
   hubAbi,
 } from "@/config/contract";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { useHubStats } from "@/hooks/useHubStats";
 
 type FarmBoostButtonProps = {
@@ -85,6 +86,7 @@ export function FarmBoostButton({
       functionName: "boost",
       chainId: DEPLOY_CHAIN_ID,
       value: isPaidBoost ? feeWei : BigInt(0),
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   };
 

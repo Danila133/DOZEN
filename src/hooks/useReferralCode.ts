@@ -13,6 +13,7 @@ import {
   hubAbi,
   isContractConfigured,
 } from "@/config/contract";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { isPreviewMode } from "@/config/preview";
 import { usePreviewHubStats } from "@/context/PreviewStateContext";
 import {
@@ -98,6 +99,7 @@ export function useReferralCode() {
       address: HUB_CONTRACT_ADDRESS,
       abi: hubAbi,
       functionName: "registerReferralCode",
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }, [enabled, isCodeRegistered, resetRegister, writeRegister]);
 
@@ -109,6 +111,7 @@ export function useReferralCode() {
       abi: hubAbi,
       functionName: "redeemReferralCode",
       args: [normalizedFriendCode],
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }, [canRedeemFriendCode, normalizedFriendCode, resetRedeem, writeRedeem]);
 

@@ -21,6 +21,7 @@ import {
   hubAbi,
   isContractConfigured,
 } from "@/config/contract";
+import { BUILDER_DATA_SUFFIX } from "@/config/builder";
 import { AIRDROP_MIN_POINTS, POINTS_PER_A_TOKEN } from "@/config/airdrop";
 import { isPreviewMode } from "@/config/preview";
 import { usePreviewHubStats } from "@/context/PreviewStateContext";
@@ -110,6 +111,7 @@ export function useAirdrop() {
         functionName: "claimAirdrop",
         args: [pointsToSpend],
         chainId: DEPLOY_CHAIN_ID,
+        dataSuffix: BUILDER_DATA_SUFFIX,
       });
     },
     [writeContract],
